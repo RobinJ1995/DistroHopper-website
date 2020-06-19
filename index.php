@@ -20,11 +20,6 @@ $lastCommit = json_decode (file_get_contents ('cron/lastCommit.json'));
 		<div class="launchericon bfb">
 			<img src="img/unity.launcher.bfb.png" alt="Dash Home" />
 		</div>
-		<div style="background-color: #D45646;" class="launchericon" id="googleplus">
-			<a href="https://plus.google.com/u/0/communities/111207292310016778258">
-				<img alt="Google+" src="https://ssl.gstatic.com/images/icons/gplus-64.png">
-			</a>
-		</div>
 		<div style="background-color: #7CBAE6;" class="launchericon" id="github">
 			<a href="https://github.com/RobinJ1995/DistroHopper">
 				<img alt="GitHub" src="img/unity.launcher.github.png">
