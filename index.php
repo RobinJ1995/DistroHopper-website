@@ -1,5 +1,4 @@
 <?php
-require_once ('curl.php');
 $lastCommit = json_decode (file_get_contents ('cron/lastCommit.json'));
 ?>
 <!DOCTYPE html>
@@ -32,7 +31,7 @@ $lastCommit = json_decode (file_get_contents ('cron/lastCommit.json'));
 			</a>
 		</div>
 		<div class="launchericon trash">
-			<a href="http://is.gd/10QgK7" target="_blank">
+			<a href="https://tinyurl.com/2fcpre6" target="_blank">
 				<img src="img/unity.launcher.trash.empty.png" alt="Rubbish Bin" />
 			</a>
 		</div>
@@ -60,7 +59,7 @@ $lastCommit = json_decode (file_get_contents ('cron/lastCommit.json'));
 					<a href="https://play.google.com/store/apps/details?id=be.robinj.distrohopper">Get it from the Google Play Store</a>
 				</p>
 				<p class="download">
-					<a href="https://github.com/RobinJ1995/DistroHopper/raw/master/DistroHopper/app/app-release.apk">Download APK</a>
+					<a href="https://github.com/RobinJ1995/DistroHopper/releases">Download APK from GitHub</a>
 				</p>
 				
 				<p id="homeScreenshot">
