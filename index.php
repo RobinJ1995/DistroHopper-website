@@ -25,6 +25,11 @@ $lastCommit = json_decode (file_get_contents ('cron/lastCommit.json'));
 				<img alt="GitHub" src="img/unity.launcher.github.png">
 			</a>
 		</div>
+		<div style="background-color: rgb(49,186,192);" class="launchericon" id="googleplay">
+			<a href="https://play.google.com/store/apps/details?id=be.robinj.distrohopper">
+				<img alt="Google Play Store" src="img/unity.launcher.googleplay.png">
+			</a>
+		</div>
 		<div class="launchericon trash">
 			<a href="https://tinyurl.com/2fcpre6" target="_blank">
 				<img src="img/unity.launcher.trash.empty.png" alt="Rubbish Bin" />
@@ -49,7 +54,7 @@ $lastCommit = json_decode (file_get_contents ('cron/lastCommit.json'));
 				<p>Ubuntu is a registered trademark of Canonical Ltd.<br />elementary is a registered trademark of elementary LLC.<br />Gnome is a registered trademark of the Gnome Foundation.<p>
 				
 				<h2>Download</h2>
-				<p>You can download the latest version of DistroHopper either from the Google Play Store, or you can download the APK file here. Note that if you download and install DistroHopper via the provided APK file, you are responsible for manually keeping DistroHopper up-to-date on your device and will not automatically receive updates for it.</p>
+				<p>You can download the latest version of DistroHopper either from the Google Play Store, or you can download the APK file from GitHub. Note that if you download and install DistroHopper via the provided APK file, you are responsible for manually keeping DistroHopper up-to-date on your device and will not automatically receive updates for it.</p>
 				<p class="download">
 					<a href="https://play.google.com/store/apps/details?id=be.robinj.distrohopper">Get it from the Google Play Store</a>
 				</p>
