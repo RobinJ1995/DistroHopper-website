@@ -1,0 +1,353 @@
+/* Theme-independent skeleton. Everything that differs between the Unity and
+   Gnome shells is expressed as a custom property here and set by
+   css/theme.unity.css / css/theme.gnome.css, which are scoped by the
+   data-theme attribute on <html>. */
+
+@import url('https://fonts.googleapis.com/css?family=Ubuntu:400,400italic,500,700,700italic|Ubuntu+Mono:400,400italic,700,700italic|Droid+Sans:400,700');
+
+:root
+{
+	/* Wallpaper-derived "chameleonic" colour, as R,G,B for use inside rgba().
+	   wallpaper.php overrides this per request with the dominant colour of the
+	   wallpaper it picked; this fallback mirrors the app's own
+	   Wallpaper.COLOUR_UBUNTU_ORANGE (#B43C12). */
+	--chameleon: 180, 60, 18;
+
+	--panel-height: 28px;
+	--launcher-width: 64px;
+	--tile-size: 52px;
+	--tile-radius: 7px;
+	--accent: #E95420;
+}
+
+*, *::before, *::after
+{
+	box-sizing: border-box;
+}
+body
+{
+	margin: 0px;
+	padding: 0px;
+	font-family: 'Ubuntu', 'Droid Sans', 'Arial', 'Verdana', sans, serif;
+	color: white;
+}
+div#desktop
+{
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	top: 0px;
+	bottom: 0px;
+	overflow: hidden;
+}
+
+/* Panel ------------------------------------------------------------------ */
+
+div.shell.panel
+{
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	right: 0px;
+	height: var(--panel-height);
+	display: flex;
+	align-items: center;
+	z-index: 3;
+}
+span.panel-clock
+{
+	display: none; /* Gnome only */
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	font-size: 13px;
+	font-weight: 500;
+	white-space: nowrap;
+}
+
+/* Launcher --------------------------------------------------------------- */
+
+div.shell.launcher
+{
+	position: absolute;
+	display: flex;
+	z-index: 4;
+}
+div.launchericon
+{
+	height: var(--tile-size);
+	width: var(--tile-size);
+	border-radius: var(--tile-radius);
+	background-size: cover;
+	background-position: center;
+	flex: none;
+	cursor: pointer;
+}
+div.launchericon a
+{
+	display: block;
+}
+div.launchericon img
+{
+	margin: 3px;
+	height: calc(var(--tile-size) - 6px);
+	width: calc(var(--tile-size) - 6px);
+	display: block;
+}
+div.launchericon.bfb img
+{
+	margin: 0px;
+	height: var(--tile-size);
+	width: var(--tile-size);
+}
+
+/* Dash ------------------------------------------------------------------- */
+
+div.shell.dash
+{
+	display: none;
+	position: absolute;
+	z-index: 2;
+}
+div.dash.ribbon
+{
+	position: absolute;
+	text-align: center;
+}
+.ribbonicon
+{
+	background: none;
+	border: 0px;
+	padding: 0px;
+	color: inherit;
+	font: inherit;
+	cursor: pointer;
+}
+div.dash.page
+{
+	position: absolute;
+	display: none;
+	padding: 24px;
+	overflow: auto;
+}
+div.dash.page h1, div.dash.page h2, div.dash.page h3
+{
+	margin-top: 0px;
+}
+div.dash.page a
+{
+	color: #EFEFEF;
+	text-decoration: none;
+	text-shadow: 0px 0px 2px #EFEFEF;
+}
+div.dash.page a:hover
+{
+	text-shadow: 0px 0px 5px #EFEFEF;
+}
+div.dash.page#screenshots
+{
+	text-align: center;
+}
+img.screenshot
+{
+	background: transparent url('../img/transparentwhite.png');
+	padding: 12px;
+	border-radius: 12px;
+	box-shadow: 0px 0px 2px 2px var(--accent);
+	margin: 8px;
+}
+img.thumbnail
+{
+	width: 20%;
+	margin: 8px;
+	transition: width 320ms ease;
+}
+img.thumbnail.zoomed
+{
+	width: 80%;
+}
+div.dash #home #homeScreenshot
+{
+	text-align: center;
+}
+div.dash #home #homeScreenshot img
+{
+	display: inline-block;
+	width: 200px;
+}
+div.dash #home .download
+{
+	text-align: center;
+	background: transparent url('../img/transparentwhite.png');
+	padding: 12px;
+	border-radius: 12px;
+	box-shadow: 0px 0px 2px 2px var(--accent);
+}
+div.dash #home .download a
+{
+	font-size: 24px;
+}
+div.dash.page#home section#intro
+{
+	margin-right: 280px;
+}
+div.dash.page#home section#side
+{
+	width: 240px;
+	position: absolute;
+	top: 24px;
+	right: 24px;
+}
+
+/* Search entry ----------------------------------------------------------- */
+
+form.dash.search
+{
+	display: none; /* Gnome only */
+	position: absolute;
+	top: 16px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 320px;
+	max-width: calc(100% - 48px);
+}
+form.dash.search input
+{
+	width: 100%;
+	height: 36px;
+	border: 0px;
+	background: none;
+	font: inherit;
+	font-size: 14px;
+	color: white;
+	outline: none;
+}
+form.dash.search input::placeholder
+{
+	color: #C0C0C2;
+	opacity: 1;
+}
+form.dash.search input::-webkit-search-decoration,
+form.dash.search input::-webkit-search-cancel-button
+{
+	-webkit-appearance: none;
+	appearance: none;
+}
+mark.searchhit
+{
+	background: var(--accent);
+	color: white;
+	border-radius: 2px;
+}
+
+/* Theme picker ----------------------------------------------------------- */
+/* Mirrors ThemeCards.kt in the app: one card per theme, the selected one gets a
+   2px stroke in that theme's brand colour over a lighter fill. */
+
+div#themepicker
+{
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	z-index: 10;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: rgba(0, 0, 0, 0.4);
+}
+div#themepicker[hidden]
+{
+	display: none;
+}
+div.themepicker-dialog
+{
+	background: #CC1C1C1E;
+	background: rgba(28, 28, 30, 0.8);
+	backdrop-filter: blur(20px);
+	border-radius: 28px;
+	padding: 24px;
+	max-width: 560px;
+	width: calc(100% - 48px);
+}
+div.themepicker-dialog h2
+{
+	margin: 0px 0px 16px 0px;
+	font-size: 22px;
+	font-weight: 500;
+	letter-spacing: 0.01em;
+}
+div.themecards
+{
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+}
+button.themecard
+{
+	flex: 1 1 200px;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	text-align: left;
+	font: inherit;
+	color: white;
+	cursor: pointer;
+	padding: 12px;
+	border-radius: 16px;
+	border: 2px solid transparent;
+	background: rgba(0, 0, 0, 0.4);
+}
+button.themecard[aria-checked="true"]
+{
+	border-color: var(--card-colour);
+	background: rgba(255, 255, 255, 0.2);
+}
+button.themecard img
+{
+	width: 48px;
+	height: 48px;
+	flex: none;
+	object-fit: contain;
+}
+button.themecard .themecard-name
+{
+	display: block;
+	font-weight: 500;
+}
+button.themecard .themecard-description
+{
+	display: block;
+	font-size: 13px;
+	color: rgba(255, 255, 255, 0.7);
+}
+
+/* Responsive ------------------------------------------------------------- */
+
+@media screen and (max-width: 900px)
+{
+	img.thumbnail
+	{
+		width: 40%;
+	}
+}
+@media screen and (max-width: 680px)
+{
+	div.dash.page#home section#intro
+	{
+		margin-right: 0px;
+	}
+	div.dash.page#home section#side
+	{
+		width: auto;
+		position: static;
+	}
+}
+@media screen and (max-width: 480px)
+{
+	img.thumbnail
+	{
+		width: 90%;
+	}
+}

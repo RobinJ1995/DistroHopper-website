@@ -1,7 +1,12 @@
 FROM php:7.4-apache
 
 RUN apt-get update \
-	&& apt-get install -y cron
+	&& apt-get install -y cron libjpeg-dev libpng-dev
+
+# GD lets wallpaper.php derive the wallpaper's dominant colour, which the Unity
+# theme uses to colour the launcher, dash and tiles.
+RUN docker-php-ext-configure gd --with-jpeg \
+	&& docker-php-ext-install gd
 
 RUN echo "0 * * * * cd /var/www/html/cron && /usr/local/bin/php /var/www/html/cron/github.php" > /etc/cron.d/last-git-commit-cron
 RUN chmod 644 /etc/cron.d/last-git-commit-cron
