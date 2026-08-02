@@ -65,6 +65,11 @@ html[data-theme="gnome"] div.launchericon
 	background: none;
 	margin: 3px 0px;
 }
+html[data-theme="gnome"] div.launchericon.trash
+{
+	/* Gnome Shell keeps the bin on the desktop, not in the dash. */
+	display: none;
+}
 html[data-theme="gnome"] div.launchericon.bfb
 {
 	/* theme_gnome_launcher_bfb_location = position_bottom: the "show apps" grid
