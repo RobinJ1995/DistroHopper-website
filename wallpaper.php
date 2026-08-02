@@ -35,7 +35,16 @@ function dominantColour ($path)
 	}
 
 	$extension = strtolower (pathinfo ($path, PATHINFO_EXTENSION));
-	if (($extension == 'jpg') || ($extension == 'jpeg'))
+	if ($extension == 'webp')
+	{
+		if (! function_exists ('imagecreatefromwebp'))
+		{
+			return $fallback;
+		}
+
+		$image = @imagecreatefromwebp ($path);
+	}
+	else if (($extension == 'jpg') || ($extension == 'jpeg'))
 	{
 		$image = @imagecreatefromjpeg ($path);
 	}
