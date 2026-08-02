@@ -53,13 +53,10 @@ html[data-theme="unity"] div.launchericon
 	background-color: var(--tile-bg);
 	margin: 4px 0px;
 }
-html[data-theme="unity"] div.launchericon.bfb
-{
-	background-color: transparent;
-	background-image: none;
-	border-radius: 0px;
-	opacity: 0.97;
-}
+/* The BFB is an AppLauncher with applauncher_special="true", so it gets exactly
+   the same background + gloss stack as any other tile
+   (widget_launcher_applauncher_special.xml). The only difference from a normal
+   tile is that its icon has no 4dp inset, which base.css already handles. */
 html[data-theme="unity"] div.launchericon.trash
 {
 	position: absolute;

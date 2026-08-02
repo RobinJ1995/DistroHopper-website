@@ -199,47 +199,6 @@ div.dash.page#home section#side
 	right: 24px;
 }
 
-/* Search entry ----------------------------------------------------------- */
-
-form.dash.search
-{
-	display: none; /* Gnome only */
-	position: absolute;
-	top: 16px;
-	left: 50%;
-	transform: translateX(-50%);
-	width: 320px;
-	max-width: calc(100% - 48px);
-}
-form.dash.search input
-{
-	width: 100%;
-	height: 36px;
-	border: 0px;
-	background: none;
-	font: inherit;
-	font-size: 14px;
-	color: white;
-	outline: none;
-}
-form.dash.search input::placeholder
-{
-	color: #C0C0C2;
-	opacity: 1;
-}
-form.dash.search input::-webkit-search-decoration,
-form.dash.search input::-webkit-search-cancel-button
-{
-	-webkit-appearance: none;
-	appearance: none;
-}
-mark.searchhit
-{
-	background: var(--accent);
-	color: white;
-	border-radius: 2px;
-}
-
 /* Theme picker ----------------------------------------------------------- */
 /* Mirrors ThemeCards.kt in the app: one card per theme, the selected one gets a
    2px stroke in that theme's brand colour over a lighter fill. */

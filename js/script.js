@@ -16,7 +16,6 @@ $(document).ready
 	{
 		initTheme ();
 		initClock ();
-		initSearch ();
 
 		toggleDash ();
 
@@ -24,11 +23,6 @@ $(document).ready
 		(
 			function (key)
 			{
-				if ($(key.target).is ('input, textarea'))
-				{
-					return;
-				}
-
 				if (key.which == 0) // Why are all the Fx keys and the super key 0? >.<
 				{
 					toggleDash ();
@@ -230,117 +224,4 @@ function updateClock ()
 	var time = ('0' + now.getHours ()).slice (-2) + ':' + ('0' + now.getMinutes ()).slice (-2);
 
 	$('span.panel-clock').text (date + '  ' + time);
-}
-
-/* Search — highlights matches on the page that's currently open in the dash. -- */
-
-function initSearch ()
-{
-	$('input#dashsearch').on
-	(
-		'input',
-		function ()
-		{
-			search ($(this).val ());
-		}
-	);
-}
-
-function search (query)
-{
-	var page = $('div.dash.page:visible').get (0) || $('div.dash.page#home').get (0);
-	if (! page)
-	{
-		return;
-	}
-
-	$('div.dash.page').each
-	(
-		function ()
-		{
-			clearHighlights (this);
-		}
-	);
-
-	query = $.trim (query);
-	if (query.length < 2)
-	{
-		return;
-	}
-
-	if (highlight (page, query))
-	{
-		var first = $(page).find ('mark.searchhit').get (0);
-		if (first && first.scrollIntoView)
-		{
-			first.scrollIntoView ({ block: 'center' });
-		}
-	}
-}
-
-function clearHighlights (root)
-{
-	$(root).find ('mark.searchhit').each
-	(
-		function ()
-		{
-			var parent = this.parentNode;
-
-			while (this.firstChild)
-			{
-				parent.insertBefore (this.firstChild, this);
-			}
-
-			parent.removeChild (this);
-			parent.normalize (); // Stitch the split text nodes back together
-		}
-	);
-}
-
-function highlight (root, query)
-{
-	var needle = query.toLowerCase ();
-	var walker = document.createTreeWalker (root, NodeFilter.SHOW_TEXT, null, false);
-	var nodes = [];
-	var node;
-	var found = false;
-
-	while ((node = walker.nextNode ()))
-	{
-		nodes.push (node);
-	}
-
-	for (var i = 0; i < nodes.length; i++)
-	{
-		var text = nodes[i].nodeValue;
-		var lower = text.toLowerCase ();
-		var index = lower.indexOf (needle);
-
-		if (index < 0)
-		{
-			continue;
-		}
-
-		var fragment = document.createDocumentFragment ();
-		var position = 0;
-
-		while (index >= 0)
-		{
-			fragment.appendChild (document.createTextNode (text.slice (position, index)));
-
-			var mark = document.createElement ('mark');
-			mark.className = 'searchhit';
-			mark.appendChild (document.createTextNode (text.substr (index, needle.length)));
-			fragment.appendChild (mark);
-
-			position = index + needle.length;
-			index = lower.indexOf (needle, position);
-			found = true;
-		}
-
-		fragment.appendChild (document.createTextNode (text.slice (position)));
-		nodes[i].parentNode.replaceChild (fragment, nodes[i]);
-	}
-
-	return found;
 }

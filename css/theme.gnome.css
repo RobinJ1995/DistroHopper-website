@@ -4,10 +4,10 @@
    documented in DistroHopper/etc/generate_theme_gnome_assets.py and the reference
    screenshots in DistroHopper/etc/theme baselines/gnome/.
 
-   The dock, panel and search entry are Android 9-patches in the app. Their
-   marker-free renders live in etc/ and are used here through border-image, which
-   reproduces 9-patch stretching: slice values below were derived from each
-   .9.png's 1px marker border.
+   The dock and panel are Android 9-patches in the app. Their marker-free renders
+   live in etc/ and are used here through border-image, which reproduces 9-patch
+   stretching: the slice values below were derived from each .9.png's 1px marker
+   border.
 
    Unlike Unity, Gnome is not chameleonic — every *_dynamic flag in
    theme_gnome.xml is false — so nothing here reads --chameleon. */
@@ -35,20 +35,21 @@ html[data-theme="gnome"] span.panel-clock
 	display: block;
 }
 
-/* Launcher — a floating dock rather than a full-edge bar:
-   theme_gnome_launcher_expand = false, theme_gnome_launcher_margin = 4dp.
+/* Launcher — a floating dock on the left edge rather than a full-edge bar:
+   theme_gnome_launcher_location = position_left, launcher_expand = false (so it
+   wraps its contents instead of filling the edge) and launcher_margin = 4dp.
    Slice 24 clears the source's 18px corner radius while staying under half the
    dock thickness, so the corners never distort. */
 
 html[data-theme="gnome"] div.shell.launcher
 {
-	left: 50%;
-	transform: translateX(-50%);
-	bottom: 4px;
-	flex-direction: row;
+	left: 4px;
+	top: 50%;
+	transform: translateY(-50%);
+	flex-direction: column;
 	align-items: center;
 	padding: 6px;
-	height: var(--dock-thickness);
+	width: var(--dock-thickness);
 	/* border-width stays 0 so the patch costs no layout space; border-image-width
 	   then draws the slices inward over the padding box, which is exactly how a
 	   9-patch behaves. */
@@ -62,14 +63,14 @@ html[data-theme="gnome"] div.launchericon
 	/* theme_gnome_launcher_applauncher_gradient = transparent and the background
 	   is @drawable/blank_gradient: bare icons, no tile, no gloss. */
 	background: none;
-	margin: 0px 3px;
+	margin: 3px 0px;
 }
 html[data-theme="gnome"] div.launchericon.bfb
 {
-	/* theme_gnome_launcher_bfb_location = position_bottom, i.e. the end of the
-	   dock — the "show apps" grid button. */
+	/* theme_gnome_launcher_bfb_location = position_bottom: the "show apps" grid
+	   button sits at the far end of the dock. */
 	order: 1;
-	margin-left: 9px;
+	margin-top: 9px;
 }
 html[data-theme="gnome"] div.launchericon.bfb img
 {
@@ -96,46 +97,27 @@ html[data-theme="gnome"] div.shell.dash
 }
 html[data-theme="gnome"] div.dash.page
 {
-	top: 108px;
+	top: 60px;
 	left: 0px;
 	right: 0px;
 	bottom: 0px;
-	padding-bottom: calc(var(--dock-thickness) + 24px);
-}
-
-/* Search entry — the magnifier is baked into the fixed left cap of the source
-   patch, so the left slice sits to its right (the glyph ends at x=31) and only
-   the middle band may stretch. The art is 36px tall and fully rounded, which is
-   why the vertical slices are 0 and the field keeps its native height. */
-
-html[data-theme="gnome"] form.dash.search
-{
-	display: block;
-}
-html[data-theme="gnome"] form.dash.search input
-{
-	border-style: solid;
-	border-width: 0px;
-	border-image: url('../img/gnome.search.background.png') 0 20 0 44 fill stretch;
-	border-image-width: 0px 20px 0px 44px;
-	height: 36px;
-	padding: 0px 20px 0px 44px;
+	padding-left: calc(var(--dock-thickness) + 24px);
 }
 
 /* Ribbon — theme_gnome_dash_ribbon_show = false, so the Unity lens ribbon is
-   gone. The two pages still need a switcher: a centred segmented pill under the
-   search entry, styled after Gnome's own pill controls. */
+   gone. The two pages still need a switcher: a centred segmented pill at the top
+   of the overview, styled after Gnome's own pill controls. */
 
 html[data-theme="gnome"] div.dash.ribbon
 {
-	top: 64px;
+	top: 16px;
 	left: 50%;
 	transform: translateX(-50%);
 	display: flex;
 	gap: 4px;
 	padding: 3px;
 	border-radius: 99px;
-	background: rgba(64, 64, 69, 0.85); /* the search pill's own #404045 @ 217 */
+	background: rgba(64, 64, 69, 0.85); /* the overview's pill colour, #404045 @ 217 */
 }
 html[data-theme="gnome"] .ribbonicon
 {
@@ -163,6 +145,6 @@ html[data-theme="gnome"] .ribbonicon img
 {
 	html[data-theme="gnome"] div.dash.page
 	{
-		top: 108px;
+		top: 60px;
 	}
 }

@@ -56,10 +56,6 @@ $lastCommit = json_decode (file_get_contents ('cron/lastCommit.json'));
 		</div>
 	</div>
 	<div class="shell dash">
-		<form class="dash search" onsubmit="return false;">
-			<input type="search" id="dashsearch" placeholder="Type to search" aria-label="Search this page" />
-		</form>
-
 		<div class="dash ribbon">
 			<button type="button" class="ribbonicon" id="ribbonhome">
 				<img src="img/unity.dash.ribbon.home.png" alt="" />
