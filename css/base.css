@@ -328,4 +328,15 @@ button.themecard .themecard-description
 	{
 		width: 90%;
 	}
+	/* Thumbnails are nearly full width at this breakpoint, so the desktop
+	   zoomed width of 80% would shrink them instead of enlarging them — and
+	   .zoomed outranks the rule above on specificity, so it has to be restated
+	   here. It drops its side margins to gain the extra width without
+	   overflowing. */
+	img.thumbnail.zoomed
+	{
+		width: 100%;
+		margin-left: 0px;
+		margin-right: 0px;
+	}
 }
