@@ -41,9 +41,10 @@ html[data-theme="unity"] div.shell.launcher
 	width: var(--launcher-width);
 	flex-direction: column;
 	align-items: center;
-	padding: 2px 0px 55px 0px;
+	padding: 2px 0px;
 	background: var(--surface);
 	border-right: 1px solid #504E4F;
+	overflow: hidden;
 }
 html[data-theme="unity"] div.launchericon
 {
@@ -57,10 +58,15 @@ html[data-theme="unity"] div.launchericon
    the same background + gloss stack as any other tile
    (widget_launcher_applauncher_special.xml). The only difference from a normal
    tile is that its icon has no 4dp inset, which base.css already handles. */
+/* The bin sits at the bottom of the bar, but it stays in flow and is pushed
+   there by auto margin rather than being absolutely positioned: an absolute bin
+   overlaps the tiles above it once the viewport is short enough that they reach
+   it (they collided by 4px at a 320px-tall viewport, e.g. a small phone in
+   landscape). In flow it can only ever be pushed off the end, never sit on top
+   of another control. */
 html[data-theme="unity"] div.launchericon.trash
 {
-	position: absolute;
-	bottom: 2px;
+	margin-top: auto;
 }
 
 /* Dash ------------------------------------------------------------------- */
