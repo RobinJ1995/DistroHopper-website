@@ -46,7 +46,7 @@ html[data-theme="unity"] div.shell.launcher
 	border-right: 1px solid #504E4F;
 	overflow: hidden;
 }
-html[data-theme="unity"] div.launchericon
+html[data-theme="unity"] .launchericon
 {
 	/* The app stacks a colour fill, a white gloss overlay and then the icon
 	   (widget_launcher_applauncher.xml). launcher_applauncher_margin = 6dp. */
@@ -64,7 +64,7 @@ html[data-theme="unity"] div.launchericon
    it (they collided by 4px at a 320px-tall viewport, e.g. a small phone in
    landscape). In flow it can only ever be pushed off the end, never sit on top
    of another control. */
-html[data-theme="unity"] div.launchericon.trash
+html[data-theme="unity"] .launchericon.trash
 {
 	margin-top: auto;
 }

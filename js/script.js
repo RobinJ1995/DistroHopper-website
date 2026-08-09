@@ -41,7 +41,7 @@ $(document).ready
 			}
 		);
 
-		$('div.launchericon.bfb').click
+		$('.launchericon.bfb').click
 		(
 			function ()
 			{
@@ -66,7 +66,7 @@ $(document).ready
 			}
 		);
 
-		$('div.launchericon#themes').click
+		$('.launchericon#themes').click
 		(
 			function ()
 			{
@@ -90,6 +90,39 @@ $(document).ready
 				if (event.target === this) // Only the backdrop, not the dialog
 				{
 					closeThemePicker ();
+				}
+			}
+		);
+
+		// Keep Tab inside the dialog: it's modal, so tabbing past the last card
+		// shouldn't land on the launcher behind the scrim.
+		$('div#themepicker').keydown
+		(
+			function (event)
+			{
+				if (event.which != 9) // Tab
+				{
+					return;
+				}
+
+				var focusable = $(this).find ('button');
+				if (focusable.length == 0)
+				{
+					return;
+				}
+
+				var first = focusable.get (0);
+				var last = focusable.get (focusable.length - 1);
+
+				if (event.shiftKey && (document.activeElement === first))
+				{
+					last.focus ();
+					event.preventDefault ();
+				}
+				else if ((! event.shiftKey) && (document.activeElement === last))
+				{
+					first.focus ();
+					event.preventDefault ();
 				}
 			}
 		);
@@ -119,7 +152,7 @@ function toggleDash ()
 {
 	$('div.shell.dash').fadeToggle (400);
 	$('div.shell.launcher').toggleClass ('dashOpened');
-	$('div.shell.launcher div.launchericon').toggleClass ('dashOpened');
+	$('div.shell.launcher .launchericon').toggleClass ('dashOpened');
 	$('div.shell.panel').toggleClass ('dashOpened');
 	dashOpened = (! dashOpened);
 
@@ -182,7 +215,7 @@ function applyTheme (name)
 
 	// The BFB is per-theme artwork rather than styling, so it's swapped here
 	// instead of in CSS.
-	$('div.launchericon.bfb img').attr ('src', THEMES[name].bfb);
+	$('.launchericon.bfb img').attr ('src', THEMES[name].bfb);
 
 	$('button.themecard').each
 	(
@@ -199,14 +232,36 @@ function applyTheme (name)
 	catch (e) {}
 }
 
+var themePickerReturnFocus = null;
+
 function openThemePicker ()
 {
+	themePickerReturnFocus = document.activeElement;
 	$('div#themepicker').removeAttr ('hidden');
+
+	// Move focus into the dialog, onto whichever theme is currently applied, so
+	// the picker is usable without a mouse.
+	var card = $('button.themecard[aria-checked="true"]').get (0) || $('button.themecard').get (0);
+	if (card)
+	{
+		card.focus ();
+	}
 }
 
 function closeThemePicker ()
 {
+	// Escape fires whether or not the picker is open; only hand focus back if it
+	// actually was, otherwise we'd yank it away from whatever the user is on.
+	var wasOpen = ($('div#themepicker').attr ('hidden') === undefined);
+
 	$('div#themepicker').attr ('hidden', 'hidden');
+
+	if (wasOpen && themePickerReturnFocus && themePickerReturnFocus.focus)
+	{
+		themePickerReturnFocus.focus ();
+	}
+
+	themePickerReturnFocus = null;
 }
 
 /* Panel clock — Gnome shows the date and time centred in the top bar. --------- */

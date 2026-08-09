@@ -73,7 +73,10 @@ div.shell.launcher
 	display: flex;
 	z-index: 4;
 }
-div.launchericon
+/* The tiles that do something in-page (dash home, theme picker) are <button>s so
+   they're focusable and fire on Enter/Space; the ones that navigate wrap an <a>.
+   Both are styled through this one class, hence the button reset. */
+.launchericon
 {
 	height: var(--tile-size);
 	width: var(--tile-size);
@@ -82,19 +85,24 @@ div.launchericon
 	background-position: center;
 	flex: none;
 	cursor: pointer;
+	display: block;
+	padding: 0px;
+	border: 0px;
+	font: inherit;
+	color: inherit;
 }
-div.launchericon a
+.launchericon a
 {
 	display: block;
 }
-div.launchericon img
+.launchericon img
 {
 	margin: 3px;
 	height: calc(var(--tile-size) - 6px);
 	width: calc(var(--tile-size) - 6px);
 	display: block;
 }
-div.launchericon.bfb img
+.launchericon.bfb img
 {
 	margin: 0px;
 	height: var(--tile-size);
@@ -122,6 +130,17 @@ div.dash.ribbon
 	color: inherit;
 	font: inherit;
 	cursor: pointer;
+}
+
+/* Keyboard focus has to be visible for the focusable controls to be usable.
+   White reads against both themes' dark chrome, where an accent-coloured ring
+   would sit on top of a same-hue tile in Unity. */
+.launchericon:focus-visible,
+.ribbonicon:focus-visible,
+button.themecard:focus-visible
+{
+	outline: 2px solid #FFFFFF;
+	outline-offset: 2px;
 }
 div.dash.page
 {

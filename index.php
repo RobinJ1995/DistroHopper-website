@@ -33,9 +33,9 @@ $lastCommit = json_decode (file_get_contents ('cron/lastCommit.json'));
 		<span class="panel-clock"></span>
 	</div>
 	<div class="shell launcher">
-		<div class="launchericon bfb">
-			<img src="img/unity.launcher.bfb.png" alt="Dash Home" />
-		</div>
+		<button type="button" class="launchericon bfb" aria-label="Dash home">
+			<img src="img/unity.launcher.bfb.png" alt="" />
+		</button>
 		<div class="launchericon" id="github">
 			<a href="https://github.com/RobinJ1995/DistroHopper">
 				<img alt="GitHub" src="img/unity.launcher.github.png">
@@ -46,9 +46,9 @@ $lastCommit = json_decode (file_get_contents ('cron/lastCommit.json'));
 				<img alt="Google Play Store" src="img/unity.launcher.googleplay.png">
 			</a>
 		</div>
-		<div class="launchericon" id="themes">
-			<img src="img/launcher.preferences.png" alt="Change theme" title="Change theme" />
-		</div>
+		<button type="button" class="launchericon" id="themes" aria-label="Change theme" title="Change theme" aria-haspopup="dialog">
+			<img src="img/launcher.preferences.png" alt="" />
+		</button>
 		<div class="launchericon trash">
 			<a href="https://tinyurl.com/2fcpre6" target="_blank">
 				<img src="img/unity.launcher.trash.empty.png" alt="Rubbish Bin" />
