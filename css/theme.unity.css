@@ -1,0 +1,133 @@
+/* Unity — "Ubuntu's Unity desktop".
+   Backported from the app's default theme: app/src/main/res/values/theme_default.xml
+   and theme/Default.java. Panel 28dp, tile radius 7dp, dash blur 10dp, and the
+   chameleonic colouring that makes the launcher, dash and tiles follow the
+   wallpaper (WallpaperColourApplier.kt): background at alpha 50/255, tiles at
+   alpha 204/255. */
+
+html[data-theme="unity"]
+{
+	--panel-height: 28px;
+	--tile-radius: 7px;
+	--accent: #E95420;
+	--card-colour: #E95420;
+
+	/* theme_default_dynamic_background_opacity = 50, tile opacity = 204 */
+	--surface: rgba(var(--chameleon), 0.196);
+	--tile-bg: rgba(var(--chameleon), 0.8);
+}
+
+/* Panel ------------------------------------------------------------------ */
+
+html[data-theme="unity"] div.shell.panel
+{
+	background: transparent url('../img/unity.panel.background.png') no-repeat;
+	background-size: 100% 100%;
+}
+html[data-theme="unity"] div.shell.panel.dashOpened
+{
+	/* theme_default_panel_background_dynamic_when_dash_opened = true */
+	background: var(--surface);
+	border-bottom: 1px solid #504E4F;
+}
+
+/* Launcher --------------------------------------------------------------- */
+
+html[data-theme="unity"] div.shell.launcher
+{
+	top: var(--panel-height);
+	left: 0px;
+	bottom: 0px;
+	width: var(--launcher-width);
+	flex-direction: column;
+	align-items: center;
+	padding: 2px 0px;
+	background: var(--surface);
+	border-right: 1px solid #504E4F;
+	overflow: hidden;
+}
+html[data-theme="unity"] .launchericon
+{
+	/* The app stacks a colour fill, a white gloss overlay and then the icon
+	   (widget_launcher_applauncher.xml). launcher_applauncher_margin = 6dp. */
+	background-image: url('../img/unity.launcher.iconbg.png');
+	background-color: var(--tile-bg);
+	margin: 4px 0px;
+}
+/* The BFB is an AppLauncher with applauncher_special="true", so it gets exactly
+   the same background + gloss stack as any other tile
+   (widget_launcher_applauncher_special.xml). The only difference from a normal
+   tile is that its icon has no 4dp inset, which base.css already handles. */
+/* The bin sits at the bottom of the bar, but it stays in flow and is pushed
+   there by auto margin rather than being absolutely positioned: an absolute bin
+   overlaps the tiles above it once the viewport is short enough that they reach
+   it (they collided by 4px at a 320px-tall viewport, e.g. a small phone in
+   landscape). In flow it can only ever be pushed off the end, never sit on top
+   of another control. */
+html[data-theme="unity"] .launchericon.trash
+{
+	margin-top: auto;
+}
+
+/* Dash ------------------------------------------------------------------- */
+
+html[data-theme="unity"] div.shell.dash
+{
+	left: var(--launcher-width);
+	top: var(--panel-height);
+	right: 0px;
+	bottom: 0px;
+	border-radius: 0px 0px 22px 0px;
+	/* dash_background_gradient.png is the faint top bloom; the tint below it is
+	   the wallpaper colour at alpha 50/255. theme_default_dash_blur_radius = 10dp. */
+	background-image: url('../img/unity.dash.gradient.png');
+	background-repeat: no-repeat;
+	background-position: top center;
+	background-size: 100% auto;
+	background-color: var(--surface);
+	backdrop-filter: blur(10px);
+}
+html[data-theme="unity"] div.dash.page
+{
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 48px;
+}
+
+/* Ribbon — Unity is the only theme that shows it (theme_default_dash_ribbon_show). */
+
+html[data-theme="unity"] div.dash.ribbon
+{
+	background: transparent url('../img/unity.dash.ribbon.background.png');
+	height: 48px;
+	left: 1px;
+	right: 0px;
+	bottom: 0px;
+}
+html[data-theme="unity"] .ribbonicon
+{
+	padding: 6px;
+	margin: 6px 1px;
+	border-radius: 6px;
+	opacity: 0.55; /* UnityRibbonIndicator.INACTIVE_ALPHA */
+}
+html[data-theme="unity"] .ribbonicon:hover
+{
+	opacity: 0.75;
+}
+html[data-theme="unity"] .ribbonicon.active
+{
+	opacity: 1;
+	background: rgba(255, 255, 255, 0.1); /* @color/transparent90 */
+}
+html[data-theme="unity"] .ribbonicon .ribbonlabel
+{
+	display: none;
+}
+html[data-theme="unity"] .ribbonicon img
+{
+	display: block;
+	width: 24px;
+	height: 24px;
+}
