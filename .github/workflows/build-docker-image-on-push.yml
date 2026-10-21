@@ -5,6 +5,9 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - uses: actions/checkout@master
       - name: Publish to Github Docker registry
@@ -13,5 +16,5 @@ jobs:
           name: robinj1995/distrohopper-website/distrohopper-website
           registry: ghcr.io
           username: RobinJ1995
-          password: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          password: ${{ secrets.GITHUB_TOKEN }}
           snapshot: true
