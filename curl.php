@@ -25,10 +25,10 @@ class Curl
     {
         $property = 'CURLOPT_' . strtoupper ($property);
         
-        if (constant ($property) === NULL)
-            $property = preg_replace_callback ('#[A-Z]#', create_function ('$match', 'return "_" . strtolower($match[0]);'), $property);
+        if (! defined ($property))
+            $property = preg_replace_callback ('#[A-Z]#', fn ($match) => '_' . strtolower ($match[0]), $property);
         
-        if (constant ($property) === NULL)
+        if (! defined ($property))
             throw new Exception ("Property doesn't exist: " . $property);
         
         $ok = curl_setopt ($this->curl, constant ($property), $value);
@@ -104,7 +104,7 @@ class CurlResult
         if (isset ($this->data[$property]))
             return $this->data[$property];
         
-        $snake = preg_replace_callback ('#[A-Z]#', create_function ('$match', 'return "_" . strtolower($match[0]);'), $property);
+        $snake = preg_replace_callback ('#[A-Z]#', fn ($match) => '_' . strtolower ($match[0]), $property);
         
         if (isset ($this->data[$snake]))
             return $this->data[$snake];
@@ -127,7 +127,7 @@ class CurlVersion
         if (isset ($this->data[$property]))
             return $this->data[$property];
         
-        $snake = preg_replace_callback ('#[A-Z]#', create_function ('$match', 'return "_" . strtolower($match[0]);'), $property);
+        $snake = preg_replace_callback ('#[A-Z]#', fn ($match) => '_' . strtolower ($match[0]), $property);
         
         if (isset ($this->data[$snake]))
             return $this->data[$snake];
