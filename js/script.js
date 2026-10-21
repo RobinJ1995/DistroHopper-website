@@ -11,8 +11,7 @@ $(document).ready
 		(
 			function (key)
 			{
-				if (key.which == 0) // Why are all the Fx keys and the super key 0? >.<
-				{
+				if (key.which == 0) { // Why are all the Fx keys and the super key 0? >.<
 					toggleDash ();
 				}
 			}
@@ -39,7 +38,7 @@ $(document).ready
 			function ()
 			{
 				$('div.dash.page#screenshots img.screenshot.thumbnail').not(this).removeClass ('zoomed');
-                                $(this).addClass ('zoomed', 320);
+				$(this).addClass ('zoomed', 320);
 			}
 		);
 	}
@@ -48,16 +47,14 @@ $(document).ready
 function goToPage (name)
 {
 	name = name.substr (6);
-	if ($('div.dash.page#' + name).length != 0) // Check if it exists
-	{
+	if ($('div.dash.page#' + name).length != 0) { // Check if it exists
 		$('img.ribbonicon').removeClass ('active');
 		$('img.ribbonicon#ribbon' + name).addClass ('active');
 		
 		$('div.dash.page').fadeOut (0);
 		$('div.dash.page#' + name).delay (300).fadeIn (400);
 	}
-	else
-	{
+	else {
 		throw ("Page \"" + name + "\" doesn't exist");
 	}
 	
@@ -77,22 +74,18 @@ function toggleDash ()
 	(
 		function (i, object)
 		{
-			if ($(object).hasClass ('active'))
-			{
+			if ($(object).hasClass ('active')) {
 				pageActive = true;
 			}
 		}
 	)
-	if (dashOpened)
-	{
+	if (dashOpened) {
 		document.location.hash = 'dash';
-		if (! pageActive)
-		{
+		if (! pageActive) {
 			goToPage ('ribbonhome');
 		}
 	}
-	else
-	{
+	else {
 		document.location.hash = 'desktop';
 	}
 }
