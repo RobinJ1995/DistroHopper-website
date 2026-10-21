@@ -19,8 +19,7 @@ foreach ($branches as $branch)
 	$result = $curl->exec ();
 	$commit = json_decode ($result->content);
 	
-	if (($lastCommit === NULL) || strcmp ($commit->commit->committer->date, $lastCommit->commit->committer->date) > 0)
-	{
+	if (($lastCommit === NULL) || strcmp ($commit->commit->committer->date, $lastCommit->commit->committer->date) > 0) {
 		$lastCommit = $commit;
 		$lastCommit->branch = $branch;
 	}
